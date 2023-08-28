@@ -17,21 +17,21 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 public class HomeController {
 
-	// get, post µÑ´Ù »ç¿ëÇÏ°í ½ÍÀ¸¸é method¸¦ »èÁ¦ÇÏ°Å³ª RequestMethod.Get, RequestMethod.Post ÀÔ·Â
+	// get, post ï¿½Ñ´ï¿½ ï¿½ï¿½ï¿½ï¿½Ï°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ methodï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï°Å³ï¿½ RequestMethod.Get, RequestMethod.Post ï¿½Ô·ï¿½
 	@RequestMapping(value = "/")
 	public String home(Model model) {
-		// È­¸é¿¡ µ¥ÀÌÅÍ¸¦ Àü¼ÛÇÏ´Â ¹æ¹ıÀº model ¿¡ ´ã¾Æ¼­ Àü¼Û
-		// model.addAttributes("È­¸é¿¡¼­ »ç¿ëÇÒ ÀÌ¸§",Àü¼ÛÇÒ °ª);
+		// È­ï¿½é¿¡ ï¿½ï¿½ï¿½ï¿½ï¿½Í¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ model ï¿½ï¿½ ï¿½ï¿½Æ¼ï¿½ ï¿½ï¿½ï¿½ï¿½
+		// model.addAttributes("È­ï¿½é¿¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¸ï¿½",ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½);
 		model.addAttribute("name", "abc");
 		return "home";
 	}
 	@RequestMapping(value = "/test1")
 	public String text1(Model model,String id, Integer age) {
-		// È­¸é¿¡ µ¥ÀÌÅÍ¸¦ Àü¼ÛÇÏ´Â ¹æ¹ıÀº model ¿¡ ´ã¾Æ¼­ Àü¼Û
-		// model.addAttributes("È­¸é¿¡¼­ »ç¿ëÇÒ ÀÌ¸§",Àü¼ÛÇÒ °ª);
+		// È­ï¿½é¿¡ ï¿½ï¿½ï¿½ï¿½ï¿½Í¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ model ï¿½ï¿½ ï¿½ï¿½Æ¼ï¿½ ï¿½ï¿½ï¿½ï¿½
+		// model.addAttributes("È­ï¿½é¿¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¸ï¿½",ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½);
 		model.addAttribute("name", "abc");
-		System.out.println("¾ÆÀÌµğ" +id);
-		System.out.println("³ªÀÌ:" + age);
+		System.out.println("ì•„ì´ë””:" +id);
+		System.out.println("ë¹„ë°€ë²ˆí˜¸:" + age);
 		return "testjsp";
 	}
 	
