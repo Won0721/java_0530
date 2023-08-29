@@ -29,7 +29,7 @@ public class HomeController {
 	public String text1(Model model,String id, Integer age) {
 		// ȭ�鿡 �����͸� �����ϴ� ����� model �� ��Ƽ� ����
 		// model.addAttributes("ȭ�鿡�� ����� �̸�",������ ��);
-		model.addAttribute("name", "abc");
+		model.addAttribute("name", "abc"); // 서버에서 화면으로 보내기
 		System.out.println("아이디:" +id);
 		System.out.println("비밀번호:" + age);
 		return "testjsp";

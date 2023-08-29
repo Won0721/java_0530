@@ -1,0 +1,29 @@
+1. 스프링 레거시 프로젝트를 생성 
+ - 저장소 / spring-projects/study
+
+2. 인코딩 설정을 통해 한글이 깨지는 현상을 수정
+ - web.xml
+ - home.jsp 
+ - sts(이미함)
+
+3. 회원 관리를 위한 패키지 및 인터페이스, 클래스, Mapper를 생성
+
+src/main/java 밑에
+ - service/dao/vo/controller/util
+controller/MemberController 에서 controller 어노테이션 및  멤버서비스 객체 생성
+MeberServiceImp 에 service 어노테이션 코딩
+ - MemberService, MemberServiceImp, MemberDAO 를 생성
+ 
+src/main/resources 밑에
+mappers 폴더 생성
+ - MemberMapper.xml 생성 및 
+<mapper namespace="kr.kh.test.dao.MemberDAO"></mapper> 입력
+
+4. webapp/WEB-INF/spring
+- root-context.xml에서 DB의 관리자 계정 아이디,비밀번호 코딩
+- mapper( DB와 JAVA간 연결) 코딩
+- root-context.xml에서 aop/beans/context/jdbc/mybatis-spring 체크
+- root-context.xml에서 driverClassName 의 value를 com.mysql.cj.jdbc.Driver
+serverTimeZone=Asia/Seoul로 변경 
+
+servlet-context.xml 에서 context:component의 base-package 를 *로 바꿔주기
