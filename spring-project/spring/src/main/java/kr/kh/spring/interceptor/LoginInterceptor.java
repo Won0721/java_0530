@@ -16,13 +16,14 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
 		HttpServletRequest request,
 		HttpServletResponse response,
 		Object handler,
-		ModelAndView mv) {
+		ModelAndView mv) throws Exception {
 		
 		MemberVO user = (MemberVO)mv.getModel().get("user");
 		
 		if(user != null) {
 			HttpSession session = request.getSession();
 			session.setAttribute("user", user); // 회원정보 저장
+//			request.getSession().setAttribute("user", user); 한줄로도 처리가능 
 		}
 		
 		

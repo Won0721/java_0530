@@ -51,7 +51,6 @@ public class MemberController {
 	@PostMapping(value = "/member/login")
 	public String memberLoginPost(MemberVO member, Model model) {
 		Message msg = new Message("/member/login", "로그인에 실패했습니다.");
-
 		MemberVO user = memberService.login(member);
 		if(user != null) {
 			msg = new Message("/", "로그인에 성공했습니다.");
