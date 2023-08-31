@@ -28,46 +28,55 @@ public class MemberController {
 	@RequestMapping(value ="/member/signup", method =RequestMethod.GET)
 	public String signup() {
 		// member폴더 밑에 signup
-		return "member/signup";
+		return "/member/signup";
 	}
 	
 	@GetMapping(value = "/member/login")
 	public String memberLogin() {
-		return "member/login";
+		return "/member/login";
 	}
 	
 	@RequestMapping(value ="/member/signup", method =RequestMethod.POST)
 	public String signupPost(MemberVO member, Model model) {
-		Message msg = new Message("/member/signup","회원 가입에 실패 했습니다.");
-
+		
+		String msg = "회원 가입 실패";
+		String url = "/member/signup";
 		if(memberService.signup(member)) {
-			msg = new Message("/", "회원 가입에 성공했습니다.");
+			msg = "회원가입 성공";
+			url = "/";
 		}
 		model.addAttribute("msg", msg);
+		model.addAttribute("url", url);
 		return "message";
 	}
 
 
 	@PostMapping(value = "/member/login")
 	public String memberLoginPost(MemberVO member, Model model) {
-		Message msg = new Message("/member/login", "로그인에 실패했습니다.");
+		String msg = "로그인 성공 실패";
+		String url = "/member/login";
 		MemberVO user = memberService.login(member);
 		if(user != null) {
-			msg = new Message("/", "로그인에 성공했습니다.");
+			msg ="로그인 성공";
+			url = "/";
 		}
 		
 		model.addAttribute("msg", msg);
+		model.addAttribute("url", url);
+		model.addAttribute("user", user);
 		return "message";
 	}
 	@GetMapping("/member/logout")
 	public String memberLogout(HttpServletRequest request, Model model) {
 		HttpSession session = request.getSession();
 		MemberVO user = (MemberVO)session.getAttribute("user");
-		Message msg = new Message("/", null);
+		String msg = "로그아웃";
+		String url = "/";
 		if(user != null) {
 			session.removeAttribute("user");
-			msg.setMsg("로그아웃에 성공했습니다.");
+			
 		}
+		model.addAttribute("url", url);
 		model.addAttribute("msg", msg);
 		return "message";
 	}

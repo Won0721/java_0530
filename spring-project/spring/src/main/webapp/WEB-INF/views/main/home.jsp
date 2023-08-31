@@ -4,12 +4,8 @@
 <!doctype html>
 <html lang="ko">
 <head>
-	<title>스프링</title>
 </head>
 <body>
-	<script type ="text/javascript">
-		alert('${msg}');
-		location.href= '<c:url value="${url}"/>';
-	</script>
+	<h1>메인</h1>
 </body>
 </html>

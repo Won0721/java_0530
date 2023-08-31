@@ -23,7 +23,7 @@ public class HomeController {
 		// ȭ�鿡 �����͸� �����ϴ� ����� model �� ��Ƽ� ����
 		// model.addAttributes("ȭ�鿡�� ����� �̸�",������ ��);
 		model.addAttribute("name", "abc");
-		return "home";
+		return "/main/home";
 	}
 	@RequestMapping(value = "/test1")
 	public String text1(Model model,String id, Integer age) {
