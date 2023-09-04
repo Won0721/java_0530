@@ -42,6 +42,6 @@
   <li class="page-item"><a class="page-link" href="javascript:void(0)">Next</a></li>
 </ul>
   <a class="btn btn-outline-danger" href="<c:url value ='/board/insert'/>" style ="float:right">글쓰기</a>
-/
+
 </body>
 </html>
