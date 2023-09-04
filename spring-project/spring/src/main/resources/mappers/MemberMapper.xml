@@ -9,4 +9,9 @@
 	<insert id="insertMember">
 		insert into member(me_id, me_pw, me_email) values(#{m.me_id},#{m.me_pw},#{m.me_email})
 	</insert>
+	<select id = "selectBoardList" resultType = "kr.kh.spring.vo.BoardVO">
+		select * from board
+		order by bo_num desc
+		limit #{cri.pageStart}, #{cri.perPageNum}
+	</select>
 </mapper>
