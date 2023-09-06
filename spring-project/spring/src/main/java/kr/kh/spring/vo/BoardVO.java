@@ -1,6 +1,8 @@
 package kr.kh.spring.vo;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 import lombok.Data;
 
@@ -10,4 +12,20 @@ public class BoardVO {
 	private String bo_title, bo_me_id, bo_contents;
 	private Date bo_reg_date, bo_up_date;
 	
+	private List<FileVO> fileVoList;
+
+	public String getBo_up_date_str() {
+		if(bo_up_date == null) {
+			return "";
+		}
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+		return format.format(bo_up_date);
+	}
+	public String getBo_reg_date_str() {
+		if(bo_reg_date == null) {
+			return "";
+		}
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+		return format.format(bo_reg_date);
+	}
 }

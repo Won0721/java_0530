@@ -11,28 +11,39 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-/**
- * Handles requests for the application home page.
- */
+import java.util.HashMap;
+import java.util.Map;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import kr.kh.spring.vo.MemberVO;
+
 @Controller
 public class HomeController {
-
-	// get, post �Ѵ� ����ϰ� ������ method�� �����ϰų� RequestMethod.Get, RequestMethod.Post �Է�
-	@RequestMapping(value = "/")
+	
+	@RequestMapping(value="/")
 	public String home(Model model) {
-		// ȭ�鿡 �����͸� �����ϴ� ����� model �� ��Ƽ� ����
-		// model.addAttributes("ȭ�鿡�� ����� �̸�",������ ��);
 		model.addAttribute("name", "abc");
 		return "/main/home";
 	}
-	@RequestMapping(value = "/test1")
-	public String text1(Model model,String id, Integer age) {
-		// ȭ�鿡 �����͸� �����ϴ� ����� model �� ��Ƽ� ����
-		// model.addAttributes("ȭ�鿡�� ����� �̸�",������ ��);
-		model.addAttribute("name", "abc"); // 서버에서 화면으로 보내기
-		System.out.println("아이디:" +id);
-		System.out.println("비밀번호:" + age);
-		return "testjsp";
-	}
 	
+	@RequestMapping(value="/test1")
+	public String test1(Model model, String id, Integer age) {
+		System.out.println("아이디 : " +id);
+		System.out.println("나이 : " + age);
+		return "test1";
+	}
+	@ResponseBody
+	@PostMapping("/ajax/test")
+	public Map<String, Object> ajaxTest(@RequestBody MemberVO member){
+		Map<String, Object> map = new HashMap<String, Object>();
+		System.out.println(member);
+		map.put("name", "홍길동");
+		return map;
+	}
 }
