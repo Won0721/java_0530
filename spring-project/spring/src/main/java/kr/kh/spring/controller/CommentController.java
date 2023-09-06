@@ -24,6 +24,7 @@ public class CommentController {
 	public Map<String, Object> insert(@RequestBody CommentVO comment){
 		Map<String, Object> map = new HashMap<String, Object>();
 		boolean res = commentService.insertComment(comment);
+		map.put("res", res);
 		return map;
 	}
 }
