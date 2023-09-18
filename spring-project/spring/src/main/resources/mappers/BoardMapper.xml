@@ -18,50 +18,65 @@
 		<result property="bo_reg_date" column="bo_reg_date"/>
 		<collection property="fileVoList" ofType="kr.kh.spring.vo.FileVO" column="bo_num" select="selectFileList"/>
 	</resultMap>
-
+	<resultMap type="kr.kh.spring.vo.BoardTypeVO" id="BoardTypeVO">
+		<id property="bt_num" column="bt_num"/>
+		<result property="bt_title" column="bt_title"/>
+		<collection 
+			property="baList" 
+			ofType="kr.kh.spring.vo.BoardAuthorityVO" 
+			column="bt_num" 
+			select="selectBoardAuthorityList"/>
+	</resultMap>
 
 	<insert id="insertBoard" useGeneratedKeys="true" keyProperty="board.bo_num" >
-		insert into board(bo_num, bo_ori_num, bo_title, bo_contents, bo_me_id)
+		insert into board(bo_num, bo_ori_num, bo_title, bo_contents, bo_me_id,bo_bt_num)
+		
 		select 
-			ifnull(max(bo_num),0)+1,
+			ifnull(max(bo_num),0)+1, 
 		<choose>
-			<when test="board.bo_ori_num == 0">
-				ifnull(max(bo_num),0)+1
+			<when test="board.bo_ori_num == 0">	
+				ifnull(max(bo_num),0)+1,
 			</when>
 			<otherwise>
-				#{board.bo.ori_num}
+				#{board.bo_ori_num},
 			</otherwise>
 		</choose>
-			,#{board.bo_title}, #{board.bo_contents}
-			,#{board.bo_me_id}
+			#{board.bo_title}, #{board.bo_contents}
+			,#{board.bo_me_id}, #{board.bo_bt_num}
 		from 
 			board
 	</insert>
-	<select id="selectBoardList" resultType="kr.kh.spring.vo.BoardVO">
+	<select id="selectBoardList" resultType="BoardVO">
 		select * from board
 		<choose>
 			<when test='cri.type.equals("0")'>
-				where bo_title like concat('%', #{cri.search}, '%') or 
-					bo_contents like concat('%', #{cri.search}, '%')
+				where (bo_title like concat('%', #{cri.search}, '%') or 
+					bo_contents like concat('%', #{cri.search}, '%'))
 			</when>
 			<otherwise>
 				where ${cri.type} like concat('%', #{cri.search}, '%')
 			</otherwise>
 		</choose>
-		order by bo_ori_num desc, bo_num desc
+		<if test="cri.bt_num != 0">
+			and bo_bt_num = #{cri.bt_num}
+		</if>
+		order by bo_ori_num desc, bo_num asc
 		limit #{cri.pageStart}, #{cri.perPageNum}
 	</select>
 	<select id="selectBoardCount" resultType="int">
 		select count(*) from board
 		<choose>
 			<when test='cri.type.equals("0")'>
-				where bo_title like concat('%', #{cri.search}, '%') or 
-					bo_contents like concat('%', #{cri.search}, '%')
+				where (bo_title like concat('%', #{cri.search}, '%') or 
+					bo_contents like concat('%', #{cri.search}, '%'))
 			</when>
 			<otherwise>
 				where ${cri.type} like concat('%', #{cri.search}, '%')
 			</otherwise>
 		</choose>
+		<if test="cri.bt_num != 0">
+			and bo_bt_num = #{cri.bt_num}
+		</if>
 	</select>
 	<select id="selectBoard" resultMap="BoardVO">
 		select * from board where bo_num = #{bo_num}
@@ -112,4 +127,54 @@
 		where
 			bo_num = #{bo_num}
 	</update>
+	<update id="updateBoardComment">
+		update board set
+			bo_comment = (select count(*) from comment where co_bo_num = #{bo_num})
+		where
+			bo_num = #{bo_num}
+	</update>
+	<select id="selectBoardTypeList" resultMap="BoardTypeVO">
+		select * from board_type
+	</select>
+	<select id="selectBoardAuthorityList" resultType="kr.kh.spring.vo.BoardAuthorityVO">
+		select * from board_authority where ba_bt_num = #{bt_num}
+	</select>
+	<insert id="insertBoardType" useGeneratedKeys="true" keyProperty="bt.bt_num">
+		insert into board_type(bt_title) values(#{bt.bt_title})
+	</insert>
+	<insert id="insertBoardAuthority">
+		insert into board_authority(ba_bt_num, ba_authority)
+		values(#{ba_bt_num},#{ba_authority})
+	</insert>
+	<select id="selectBoardCountByBoardType" resultType="int">
+		select count(*) from board where bo_bt_num = #{bo_bt_num}
+	</select>
+	<select id="selectBoardTypeCount" resultType="int">
+		select count(*) from board_type
+	</select>
+	<delete id="deleteBoardType">
+		delete from board_type where bt_num = #{bt_num}
+	</delete>
+	<update id="updateBoardType">
+		update board_type
+		set
+			bt_title = #{bt.bt_title}
+		where
+			bt_num = #{bt.bt_num}
+	</update>
+	<select id="selectBoardTypeListByRole" resultType="kr.kh.spring.vo.BoardTypeVO">
+		SELECT 
+		    *
+		FROM
+		    board_type
+		        JOIN
+		    board_authority ON bt_num = ba_bt_num
+		WHERE
+		    ba_authority = #{me_role}
+	</select>
 </mapper>
+
+
+
+
+

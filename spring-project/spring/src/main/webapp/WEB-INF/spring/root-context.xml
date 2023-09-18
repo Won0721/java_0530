@@ -11,25 +11,21 @@
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd
 		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.1.xsd">
 	
-	<!-- Root Context: defines shared resources visible to all other web components -->
-	
+
 	<bean id="dataSource"
-      class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-      												<!-- 버전이 8점대라 cj붙여야함 -->
-    <property name="driverClassName" value="com.mysql.cj.jdbc.Driver"></property>
-    <property name="url"
-              value="jdbc:mysql://localhost:3306/spring?useSSL=false&amp;serverTimezone=Asia/Seoul">
-    </property>
-    <property name="username" value="root"></property>
-    <property name="password" value="root"></property>
-	</bean> 
-	
-	<!-- mapper와 dao 연결 -->
+	      class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+	    <property name="driverClassName" value="com.mysql.cj.jdbc.Driver"></property>
+	    <property name="url"
+	              value="jdbc:mysql://localhost:3306/spring?useSSL=false&amp;serverTimezone=Asia/Seoul">
+	    </property>
+	    <property name="username" value="root"></property>
+	    <property name="password" value="root"></property>
+	</bean>  
+		
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
 	    <property name="dataSource" ref="dataSource" />
 	    <property name="mapperLocations" value="classpath:mappers/**/*Mapper.xml"></property>
-	</bean>									<!-- classpath:폴더명/** /Mapper.xml //사이에 어떤폴더가 오던 상관없고 이 사이에 있는 폴더 가져오겠다 -->
-	<mybatis-spring:scan base-package="kr.kh.spring.dao"/>
-	
+	    <property name="configLocation" value="/WEB-INF/spring/mybatis-config.xml"></property>
+	</bean>
+	<mybatis-spring:scan base-package="kr.kh.spring.dao"/>	
 </beans>
-

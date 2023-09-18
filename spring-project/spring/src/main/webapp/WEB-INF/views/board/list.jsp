@@ -8,6 +8,15 @@
 <body>
 	<h1>게시판</h1>
 	<form action="" method="get">
+		<div class="form-group">
+			<select class="form-control" name="bt_num">
+				<option value="0">전체</option>
+				
+				<c:forEach items="${typeList }" var="type">
+					<option value="${type.bt_num}" <c:if test="${pm.cri.bt_num == type.bt_num }">selected</c:if>>${type.bt_title }</option>
+				</c:forEach>
+			</select>
+		</div>
 	  <div class="input-group mb-3">
 	  	<div class="input-group-prepend">
 		    <select class="form-control" name="type">
@@ -36,8 +45,9 @@
 	        <td>${board.bo_num}</td>
 	        <td>
 	        	<a href="<c:url value='/board/detail${pm.cri.currentUrl}&bo_num=${board.bo_num}'/>">
-	        	<c:if test="${board.bo_num != board_bo_ori_num}"><span style = "color : red">답글 : </span></c:if>
-	        	${board.bo_title}(${board.bo_comment })</a> 
+	        	<c:if test="${board.bo_num != board.bo_ori_num }"><span style="color:red">답글 : </span></c:if>
+	        	${board.bo_title}(${board.bo_comment })
+	        	</a>
 	        </td>
 	        <td>${board.bo_me_id }</td>
 	        <td>${board.bo_views }</td>
@@ -65,5 +75,15 @@
     </c:if>
   </ul>
   <a class="btn btn-outline-danger" href="<c:url value='/board/insert'/>">글쓰기</a>
+  <script type="text/javascript">
+  	$('[name=bt_num]').change(function(){
+  		let bt_num = $(this).val();
+  		location.href = '<c:url value="/board/list?bt_num="/>'+ bt_num;
+  	});
+  </script>
 </body>
 </html>
+
+
+
+

@@ -1,0 +1,128 @@
+
+<!-- 화면 -->
+	$.ajax({
+	<!-- async : 비동기 여부 / true(비동기), false(동기)
+		동기 : ajax가 끝날때까지 대기
+		비동기 : ajax가 끝나던 말던 상관없이 다음코드가 실행
+	 -->
+		async : true|false,
+	<!-- url : 데이터를 보낼 경로, contextPath 가 있는 경우 붙여서 써줘야함 -->
+		url : '/경로',  
+	<!-- 전송방식 -->
+		type : post|get,
+	<!-- data : object | json -->
+		data : JSON.stringify(객체)
+	<!-- contentType : 서버로 보낼 데이터의 타입 -->
+		contentType : "application/json; charset=utf-8",
+	<!-- dataType : 서버에서 화면으로 보낸 데이터 타입 -->
+		dataType : "json",
+	<!-- success : 서버에서 보낸 데이터를 받으면 실행하는 함수 
+		data : 서버에서 보낸 데이터로, 변수명은 정하기 나름 
+	-->
+		success : function(<!--data-->){
+			console.log(data.화면에서 쓸 이름); 이름에 뛰어쓰기 없을때
+			console.log(data['화면에서 쓸 이름']); 이름에 뛰어쓰기 있을때
+		},
+	<!-- error : 서버에서 보낸 데이터를 받는 중 이상이 생길 때 실행되는 함수 -->
+	<!-- jqXHR : 서버에서 보낸 응답 메세지로 예외 내용을 확인할 수 있다 -->
+	<!-- textStatus : 상태 정보를 나타냄, 주로 error로 표시 -->
+	<!-- errorThrown : 응답코드 텍스트로 주로 빈 문자열 -->
+	
+		error : function(jqXHR, textStatus, errorThorwn){
+		}
+	});
+	
+<!-- 서버 -->
+	@ResponseBody
+	@GettMapping("경로") / @PostMapping("경로")
+	public Map<String, Object> 메서드명(@RequestBody XXVO xxVo)
+		Map<String, Object> map = new HashMap<>();
+		map.put("화면에서 쓸 이름", 데이터);
+		return map;
+		
+화면 : Object => 서버 :JSON
+화면에서 Object로 전송하면 서버에서는 개별로 받을 수 있다
+서버에서 JSOn으로 전송하면 화면에서는 다른 종류의 데이터들을 사용 할수있다
+
+<!-- 화면 -->
+	$.ajax({
+	<!-- async : 비동기 여부 / true(비동기), false(동기)
+		동기 : ajax가 끝날때까지 대기
+		비동기 : ajax가 끝나던 말던 상관없이 다음코드가 실행
+	 -->
+		async : true|false,
+	<!-- url : 데이터를 보낼 경로, contextPath 가 있는 경우 붙여서 써줘야함 -->
+		url : '/경로',  
+	<!-- 전송방식 -->
+		type : post|get,
+	<!-- data : object | json -->
+		data : {속성1 : 값1, 속성2 : 값2}, 
+		
+	<!-- dataType : 서버에서 화면으로 보낸 데이터 타입 -->
+		dataType : "json",
+	<!-- success : 서버에서 보낸 데이터를 받으면 실행하는 함수 
+		data : 서버에서 보낸 데이터로, 변수명은 정하기 나름 
+	-->
+		success : function(<!--data-->){
+			console.log(data.화면에서 쓸 이름); 이름에 뛰어쓰기 없을때
+			console.log(data['화면에서 쓸 이름']); 이름에 뛰어쓰기 있을때
+		},
+	<!-- error : 서버에서 보낸 데이터를 받는 중 이상이 생길 때 실행되는 함수 -->
+		error : function(jqXHR, textStatus, errorThorwn){
+			<!-- jqXHR : 서버에서 보낸 응답 메세지로 예외 내용을 확인할 수 있다 -->
+			<!-- textStatus : 상태 정보를 나타냄, 주로 error로 표시 -->
+			<!-- errorThrown : 응답코드 텍스트로 주로 빈 문자열 -->
+		}
+	});
+	
+<!-- 서버 -->
+	@ResponseBody
+	@GettMapping("경로") / @PostMapping("경로")
+	public Map<String, Object> 메서드명(@RequestParam("속성1") 클래스명 객체명,
+	@RequestParam("속성2") 클래스명 객체명 ){
+		Map<String, Object> map = new HashMap<>();
+		map.put("화면에서 쓸 이름", 데이터);
+		return map;
+	}
+	
+화면 : Object => 서버 : Object
+화면에서 Object로 전송하면 서버에서는 개별로 받을 수 있다
+서버에서 Object로 전송하면 화면에서는 한 종류의 데이터를 받아 사용할 수 있다
+
+<!-- 화면 -->
+	$.ajax({
+	<!-- async : 비동기 여부 / true(비동기), false(동기)
+		동기 : ajax가 끝날때까지 대기
+		비동기 : ajax가 끝나던 말던 상관없이 다음코드가 실행
+	 -->
+		async : true|false,
+	<!-- url : 데이터를 보낼 경로, contextPath 가 있는 경우 붙여서 써줘야함 -->
+		url : '/경로',  
+	<!-- 전송방식 -->
+		type : post|get,
+	<!-- data : object | json -->
+		data : {속성1 : 값1, 속성2 : 값2}, 
+
+	<!-- success : 서버에서 보낸 데이터를 받으면 실행하는 함수 
+		data : 서버에서 보낸 데이터로, 변수명은 정하기 나름 
+	-->
+		success : function(<!--data-->){
+
+		},
+	<!-- error : 서버에서 보낸 데이터를 받는 중 이상이 생길 때 실행되는 함수 -->
+		error : function(jqXHR, textStatus, errorThorwn){
+			<!-- jqXHR : 서버에서 보낸 응답 메세지로 예외 내용을 확인할 수 있다 -->
+			<!-- textStatus : 상태 정보를 나타냄, 주로 error로 표시 -->
+			<!-- errorThrown : 응답코드 텍스트로 주로 빈 문자열 -->
+		}
+	});
+	
+<!-- 서버 -->
+	@ResponseBody
+	@GettMapping("경로") / @PostMapping("경로")
+	// 리턴타입이 꼭 object일 필요는 없음, List로 보내고 싶으면 List로 수정해도 상관X
+	public Object 메서드명(@RequestParam("속성1") 클래스명 객체명,
+	@RequestParam("속성2") 클래스명 객체명 ){
+		클래스명 객체명 = xxService.메서드명();
+		return 객체명;
+	}
